@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Reports</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="reports.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Appointment Reports</h1>
+        <a href="index.html">Back to Home</a>
+    </header>
+
+    <section class="reports">
+        <h2>Appointments Per Doctor</h2>
+        <select id="doctor-report-select"></select>
+        <button onclick="fetchDoctorReport()">Generate Report</button>
+        <div id="doctor-report"></div>
+
+        <h2>Appointments Per Patient</h2>
+        <select id="patient-report-select"></select>
+        <button onclick="fetchPatientReport()">Generate Report</button>
+        <div id="patient-report"></div>
+    </section>
+</body>
+</html>

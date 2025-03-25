@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Doctors</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="doctors.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Manage Doctors</h1>
+        <a href="index.html">Back to Home</a>
+    </header>
+
+    <section class="doctor-management">
+        <h2>Add New Doctor</h2>
+        <input type="text" id="doctor-name" placeholder="Doctor Name">
+        <input type="text" id="doctor-specialty" placeholder="Specialty">
+        <button onclick="addDoctor()">Add Doctor</button>
+
+        <h2>Existing Doctors</h2>
+        <div id="doctor-list"></div>
+    </section>
+</body>
+</html>

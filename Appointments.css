@@ -1,0 +1,52 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+.calendar-container {
+    width: 80%;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-title {
+    color: #0C155A;
+}
+
+.calendar-filters {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.select-filter, .input-filter {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.calendar-wrapper {
+    margin-top: 10px;
+}
+
+.event-high {
+    background-color: red !important;
+    color: white !important;
+}
+
+.event-medium {
+    background-color: orange !important;
+    color: white !important;
+}
+
+.event-low {
+    background-color: green !important;
+    color: white !important;
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Calendar</title>
+    <link rel="stylesheet" href="Appointments.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.css">
+</head>
+<body>
+
+    <div class="calendar-container">
+        <h2 class="calendar-title">Appointment Calendar</h2>
+        <div class="calendar-filters">
+            <select id="doctorFilter" class="select-filter">
+                <option value="">All Doctors</option>
+            </select>
+            <input id="patientSearch" class="input-filter" type="text" placeholder="Search Patient">
+        </div>
+        <div id="calendar" class="calendar-wrapper"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.js"></script>
+    <script src="Appointments.js"></script>
+</body>
+</html>

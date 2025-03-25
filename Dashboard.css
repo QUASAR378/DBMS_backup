@@ -1,0 +1,88 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    width: 100%;
+}
+
+/* Top Bar */
+.dashboard-top-bar {
+    background-color: #0C155A; /* Midnight Blue */
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dashboard-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.icon {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Welcome Section */
+.welcome-section {
+    background: white;
+    padding: 20px;
+    margin: 15px auto;
+    border-radius: 5px;
+    width: 80%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.emoji {
+    font-size: 24px;
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    width: 80%;
+    margin: auto;
+}
+
+.dashboard-box {
+    background: #0C155A;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.dashboard-box:hover {
+    background: #081045;
+}
+
+.section-icon {
+    font-size: 30px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Footer */
+.dashboard-footer {
+    background-color: #0C155A;
+    color: white;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.footer-bottom {
+    margin-top: 10px;
+}

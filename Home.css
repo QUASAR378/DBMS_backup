@@ -1,0 +1,118 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+/* Header */
+.top-bar {
+    background-color: #0C155A; /* Midnight Blue */
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+}
+
+.nav-links li {
+    margin: 0 10px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+/* Auth Icon */
+.auth-icon {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Sections */
+.services-section, .health-tips-section {
+    background: white;
+    padding: 20px;
+    margin: 15px auto;
+    border-radius: 5px;
+    width: 80%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.services-grid, .health-tips-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.service-box, .tip-box {
+    background: #0C155A;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.medical-care {
+    margin-top: 20px;
+}
+
+.contact-btn {
+    background-color: #0C155A;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* Footer */
+.footer-section {
+    background-color: #0C155A;
+    color: white;
+    padding: 20px;
+}
+
+.contact-info {
+    margin: 5px 0;
+}
+
+.footer-bottom {
+    margin-top: 10px;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.modal-content {
+    text-align: left;
+}
+
+.close-btn {
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+}

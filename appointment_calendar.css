@@ -1,0 +1,46 @@
+.calendar-container {
+    max-width: 900px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-title {
+    text-align: center;
+    color: #0C155A;
+}
+
+.calendar-filters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.select-filter, .input-filter {
+    width: 48%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Calendar Styling */
+.rbc-calendar {
+    border-radius: 5px;
+}
+
+.event-high {
+    background: red !important;
+    color: white !important;
+}
+
+.event-medium {
+    background: orange !important;
+    color: white !important;
+}
+
+.event-low {
+    background: green !important;
+    color: white !important;
+}

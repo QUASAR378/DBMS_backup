@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Appointments</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="appointment.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Manage Appointments</h1>
+        <a href="index.html">Back to Home</a>
+    </header>
+
+    <section class="appointment-management">
+        <h2>Schedule a New Appointment</h2>
+        <select id="patient-select"></select>
+        <select id="doctor-select"></select>
+        <input type="datetime-local" id="appointment-date">
+        <button onclick="addAppointment()">Book Appointment</button>
+
+        <h2>Existing Appointments</h2>
+        <div id="appointment-list"></div>
+    </section>
+</body>
+</html>
