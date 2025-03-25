@@ -2,7 +2,7 @@
     max-width: 400px;
     margin: 50px auto;
     padding: 20px;
-    background: white;
+    background: rgb(6, 37, 138);
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -15,9 +15,9 @@
 
 .auth-container input, .auth-container select {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
+    padding: 0.5px;
+    margin: 20px 0;
+    border: 1px solid #6f8dc4;
     border-radius: 5px;
 }
 
