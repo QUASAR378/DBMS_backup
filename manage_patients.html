@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Patients</title>
+    <link rel="stylesheet" href="patient.css">
+</head>
+<body>
+    <header>
+        <h1>Manage Patients</h1>
+    </header>
+
+    <div class="container">
+        <button class="add-btn" onclick="openPatientModal()">New Patient</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="patient-list">
+                <!-- Patients will be loaded here dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Patient Modal -->
+    <div id="patient-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePatientModal()">&times;</span>
+            <h2 id="modal-title">New Patient</h2>
+            <form id="patient-form">
+                <input type="hidden" id="patient_id">
+                
+                <label for="name">Name:</label>
+                <input type="text" id="name" required>
+
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+
+                <button type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="patients.js"></script>
+</body>
+</html>
