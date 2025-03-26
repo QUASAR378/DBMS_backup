@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const data = await response.json();
             alert(data.message);
-            if (data.success) window.location.href = "dashboard.html";
+            if (data.success) window.location.href = "Dashboard.html";
         });
     }
 });

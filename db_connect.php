@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
 $user = "root";
-$password = "paSSW08-D";
+$password = "";
 $database = "HospitalClinicSystem"; // Use your actual database name
 
 $conn = new mysqli($host, $user, $password, $database);
