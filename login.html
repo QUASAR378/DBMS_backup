@@ -9,13 +9,19 @@
 <body>
     <div class="auth-container">
         <h2>Login</h2>
-        <form id="login-form" >
+        <form id="login-form">
             <input type="email" id="login-email" placeholder="Email" required>
             <input type="password" id="login-password" placeholder="Password" required>
-            <a href="index.html"><button type="submit">Login</button></a>
+            <button type="submit">Login</button>
             <p>Don't have an account? <a href="register.html" class="btn-primary">Register</a></p>
         </form>
     </div>
-    
+
+    <script>
+        document.getElementById("login-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent default form submission
+            window.location.href = "index.html"; // Redirect to index.html
+        });
+    </script>
 </body>
 </html>

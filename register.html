@@ -9,7 +9,7 @@
 <body>
     <div class="auth-container">
         <h2>Register</h2>
-        <form >
+        <form id="register-form">
             <input type="text" id="name" placeholder="Full Name" required>
             <input type="email" id="email" placeholder="Email" required>
             <input type="password" id="password" placeholder="Password" required>
@@ -17,10 +17,16 @@
                 <option value="patient">Patient</option>
                 <option value="doctor">Doctor</option>
             </select>
-            <a href="index.html"><button type="submit">Register</button></a>
-            <p>Already have an account? <a href="login.html" class="btn-secondary">Login></a></p>
+            <button type="submit">Register</button>
+            <p>Already have an account? <a href="login.html" class="btn-secondary">Login</a></p>
         </form>
     </div>
-    
+
+    <script>
+        document.getElementById("register-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent default form submission
+            window.location.href = "index.html"; // Redirect to index.html
+        });
+    </script>
 </body>
 </html>
