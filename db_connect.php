@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $password = "Malibu*0123.+-";
-$database = "HospitalClinicSystem"; // Use your actual database name
+$database = "Hospital"; // Use your actual database name
 
 $conn = new mysqli($host, $user, $password, $database);
 
