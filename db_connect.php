@@ -1,10 +1,10 @@
 <?php
-$host = "localhost";
-$user = "root";
-$password = "";
-$database = "hospitalclinicsystem"; // Use your actual database name
+$servername = "localhost";
+$username = "root";
+$password = ""; // Default XAMPP MySQL has no password
+$database = "hospitalclinicsystem"; // Update with your database name
 
-$conn = new mysqli($host, $user, $password, $database);
+$conn = new mysqli($servername, $username, $password, $database);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);

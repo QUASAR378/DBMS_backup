@@ -1,5 +1,4 @@
 <?php
-
 error_reporting(E_ALL);
 session_start();
 require 'db_connect.php'; // Database connection
@@ -7,17 +6,23 @@ require 'db_connect.php'; // Database connection
 header("Content-Type: application/json");
 
 $data = json_decode(file_get_contents("php://input"), true);
-$name = $data['name'];
-$email = $data['email'];
-$password = password_hash($data['password'], PASSWORD_DEFAULT); // Hash password
-$role = $data['role'];
+
+if (!$data) {
+    echo json_encode(["success" => false, "message" => "Invalid request."]);
+    exit();
+}
+
+$name = isset($data['name']) ? $data['name'] : '';
+$email = isset($data['email']) ? $data['email'] : '';
+$password = isset($data['password']) ? password_hash($data['password'], PASSWORD_DEFAULT) : '';
+$role = isset($data['role']) ? $data['role'] : '';
 
 if (empty($name) || empty($email) || empty($data['password']) || empty($role)) {
     echo json_encode(["success" => false, "message" => "All fields are required."]);
     exit();
 }
 
-// Check if email already exists
+// Check if email exists
 $checkStmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
 $checkStmt->bind_param("s", $email);
 $checkStmt->execute();
