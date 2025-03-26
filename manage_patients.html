@@ -3,52 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Patients</title>
+    <title>Patient Management System</title>
     <link rel="stylesheet" href="patient.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h1>Manage Patients</h1>
+        <h1>Patient Management System</h1>
     </header>
 
     <div class="container">
-        <button class="add-btn" onclick="openPatientModal()">New Patient</button>
+        <button class="add-btn" onclick="openCreateModal()">
+            <span class="icon">+</span> New Patient
+        </button>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="patient-list">
-                <!-- Patients will be loaded here dynamically -->
-            </tbody>
-        </table>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="patient-list">
+                    <!-- Patients will be loaded here -->
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <!-- Patient Modal -->
+    <!-- Create/Edit Patient Modal -->
     <div id="patient-modal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closePatientModal()">&times;</span>
+            <span class="close" onclick="closeModal()">&times;</span>
             <h2 id="modal-title">New Patient</h2>
             <form id="patient-form">
-                <input type="hidden" id="patient_id">
+                <input type="hidden" id="patient-id">
                 
-                <label for="name">Name:</label>
-                <input type="text" id="name" required>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" required placeholder="Enter patient's full name">
+                </div>
 
-                <label for="phone">Phone:</label>
-                <input type="text" id="phone" required>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" required placeholder="Enter phone number">
+                </div>
 
-                <label for="email">Email:</label>
-                <input type="email" id="email" required>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required placeholder="Enter email address">
+                </div>
 
-                <button type="submit">Save</button>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" required>
+                        <option value="1">Active</option>
+                        <option value="0">Inactive</option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="save-btn">Save Patient</button>
+                </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content confirm-content">
+            <h2>Confirm Action</h2>
+            <p id="confirm-message">Are you sure you want to deactivate this patient?</p>
+            <div class="confirm-actions">
+                <button class="cancel-btn" onclick="closeConfirmModal()">Cancel</button>
+                <button class="confirm-btn" id="confirm-action-btn">Confirm</button>
+            </div>
         </div>
     </div>
 
