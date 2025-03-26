@@ -27,7 +27,7 @@ header h1 {
     width: 90%;
     max-width: 1200px;
     margin: 2rem auto;
-    background: white;
+    background: rgb(4, 2, 105);
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -85,7 +85,7 @@ th {
 }
 
 tr:nth-child(even) {
-    background-color: #f7fafc;
+    background-color: #042b46;
 }
 
 tr:hover {
@@ -105,7 +105,7 @@ tr:hover {
 
 .edit-btn {
     background-color: #06345f;
-    color: white;
+    color: rgb(20, 5, 104);
     border: none;
 }
 
@@ -136,7 +136,7 @@ tr:hover {
 }
 
 .modal-content {
-    background: white;
+    background: rgb(14, 2, 128);
     padding: 2rem;
     width: 90%;
     max-width: 500px;
@@ -160,7 +160,7 @@ tr:hover {
 }
 
 #modal-title {
-    color: #03366d;
+    color: #08a838;
     margin-bottom: 1.5rem;
     font-size: 1.5rem;
     text-align: center;
@@ -183,7 +183,7 @@ tr:hover {
 #patient-form input {
     width: 100%;
     padding: 12px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #022047;
     border-radius: 6px;
     font-size: 1rem;
     transition: all 0.3s ease;
