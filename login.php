@@ -1,12 +1,19 @@
 <?php
+error_reporting(E_ALL);
 session_start();
 require 'db_connect.php';
 
 header("Content-Type: application/json");
 
 $data = json_decode(file_get_contents("php://input"), true);
-$email = $data['email'];
-$password = $data['password'];
+
+if (!$data) {
+    echo json_encode(["success" => false, "message" => "Invalid request."]);
+    exit();
+}
+
+$email = isset($data['email']) ? $data['email'] : '';
+$password = isset($data['password']) ? $data['password'] : '';
 
 if (empty($email) || empty($password)) {
     echo json_encode(["success" => false, "message" => "All fields are required."]);

@@ -5,10 +5,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (registerForm) {
         registerForm.addEventListener("submit", async (e) => {
             e.preventDefault();
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
             const role = document.getElementById("role").value;
+
+            if (!name || !email || !password || !role) {
+                alert("All fields are required.");
+                return;
+            }
 
             const response = await fetch("register.php", {
                 method: "POST",
@@ -25,8 +30,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (loginForm) {
         loginForm.addEventListener("submit", async (e) => {
             e.preventDefault();
-            const email = document.getElementById("login-email").value;
-            const password = document.getElementById("login-password").value;
+            const email = document.getElementById("login-email").value.trim();
+            const password = document.getElementById("login-password").value.trim();
+
+            if (!email || !password) {
+                alert("All fields are required.");
+                return;
+            }
 
             const response = await fetch("login.php", {
                 method: "POST",
@@ -36,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const data = await response.json();
             alert(data.message);
-            if (data.success) window.location.href = "dashboard.html";
+            if (data.success) window.location.href = "Dashboard.html";
         });
     }
 });

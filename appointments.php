@@ -1,4 +1,4 @@
-<?php include "header.php"; ?>
+<?php include "db_connect.php"; ?>
 
 <div class="container">
     <h2>Manage Appointments</h2>
@@ -44,4 +44,4 @@
 </div>
 
 <script src="appointments.js"></script>
-<?php include "footer.php"; ?>
+?>
