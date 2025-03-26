@@ -76,7 +76,7 @@ th, td {
 }
 
 th {
-    background: #4299e1;
+    background: #023c6b;
     color: white;
     font-weight: 600;
     text-transform: uppercase;
@@ -104,7 +104,7 @@ tr:hover {
 }
 
 .edit-btn {
-    background-color: #3182ce;
+    background-color: #06345f;
     color: white;
     border: none;
 }
@@ -160,7 +160,7 @@ tr:hover {
 }
 
 #modal-title {
-    color: #2b6cb0;
+    color: #03366d;
     margin-bottom: 1.5rem;
     font-size: 1.5rem;
     text-align: center;
@@ -190,13 +190,13 @@ tr:hover {
 }
 
 #patient-form input:focus {
-    border-color: #4299e1;
+    border-color: #03345c;
     outline: none;
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
 }
 
 #patient-form button[type="submit"] {
-    background-color: #4299e1;
+    background-color: #05345a;
     color: white;
     padding: 12px;
     border: none;
@@ -209,7 +209,7 @@ tr:hover {
 }
 
 #patient-form button[type="submit"]:hover {
-    background-color: #3182ce;
+    background-color: #033463;
 }
 
 /* Status Badges */
