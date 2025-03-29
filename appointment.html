@@ -5,26 +5,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Appointments</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="appointment.js" defer></script>
 </head>
 <body>
     <header>
-        <h1>Manage Appointments</h1>
-        <a href="index.html">Back to Home</a>
+        <div class="header-content">
+            <h1><i class="fas fa-calendar-check"></i> Manage Appointments</h1>
+            <a href="index.html" class="home-link"><i class="fas fa-home"></i> Back to Home</a>
+        </div>
     </header>
 
-    <section class="appointment-management">
-        <h2>Schedule a New Appointment</h2>
-        <p style="color: midnightblue;">Select Patient</p>
-        <select id="patient-select"></select>
-        <p style="color: midnightblue;">Select doctor</p>
-        <select id="doctor-select"></select>
-        <p style="color: midnightblue;">Book an appointment</p>
-        <input type="datetime-local" id="appointment-date">
-        <button onclick="addAppointment()">Book Appointment</button>
+    <main class="container">
+        <section class="appointment-management">
+            <div class="appointment-section">
+                <h2><i class="fas fa-plus-circle"></i> Schedule a New Appointment</h2>
+                <div class="form-group">
+                    <label for="patient-select"><i class="fas fa-user"></i> Select Patient</label>
+                    <select id="patient-select" class="form-control"></select>
+                </div>
+                <div class="form-group">
+                    <label for="doctor-select"><i class="fas fa-user-md"></i> Select Doctor</label>
+                    <select id="doctor-select" class="form-control"></select>
+                </div>
+                <div class="form-group">
+                    <label for="appointment-date"><i class="fas fa-calendar-day"></i> Appointment Date & Time</label>
+                    <input type="datetime-local" id="appointment-date" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="appointment-notes"><i class="fas fa-notes-medical"></i> Notes (Optional)</label>
+                    <textarea id="appointment-notes" class="form-control" rows="3"></textarea>
+                </div>
+                <button onclick="addAppointment()" class="btn-primary"><i class="fas fa-calendar-plus"></i> Book Appointment</button>
+            </div>
 
-        <h2>Existing Appointments</h2>
-        <div id="appointment-list"></div>
-    </section>
+            <div class="appointment-section">
+                <h2><i class="fas fa-list-ul"></i> Existing Appointments</h2>
+                <div class="filter-controls">
+                    <div class="form-group">
+                        <label for="filter-date"><i class="fas fa-filter"></i> Filter by Date</label>
+                        <input type="date" id="filter-date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="filter-doctor"><i class="fas fa-filter"></i> Filter by Doctor</label>
+                        <select id="filter-doctor" class="form-control">
+                            <option value="">All Doctors</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="appointment-list" class="appointment-cards"></div>
+            </div>
+        </section>
+
+        <!-- Confirmation Modal -->
+        <div id="confirmation-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h3 id="modal-title">Confirm Action</h3>
+                <p id="modal-message">Are you sure you want to perform this action?</p>
+                <div class="modal-buttons">
+                    <button id="confirm-action" class="btn-danger">Confirm</button>
+                    <button id="cancel-action" class="btn-secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reschedule Modal -->
+        <div id="reschedule-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h3>Reschedule Appointment</h3>
+                <div class="form-group">
+                    <label for="new-appointment-date">New Date & Time</label>
+                    <input type="datetime-local" id="new-appointment-date" class="form-control">
+                </div>
+                <div class="modal-buttons">
+                    <button id="confirm-reschedule" class="btn-primary">Reschedule</button>
+                    <button id="cancel-reschedule" class="btn-secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Medical Appointment System. All rights reserved.</p>
+    </footer>
 </body>
 </html>

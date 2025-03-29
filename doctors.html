@@ -5,33 +5,339 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Doctors</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="doctors.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        // Mock data for doctors
+        const mockDoctors = [
+            { id: 1, name: "Dr. Sarah Johnson", specialty: "Cardiology", status: "Active" },
+            { id: 2, name: "Dr. Michael Chen", specialty: "Neurology", status: "Active" },
+            { id: 3, name: "Dr. Emily Rodriguez", specialty: "Pediatrics", status: "On Leave" },
+            { id: 4, name: "Dr. James Wilson", specialty: "Orthopedics", status: "Active" },
+            { id: 5, name: "Dr. Olivia Parker", specialty: "Dermatology", status: "Inactive" }
+        ];
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Load mock doctors data
+            renderDoctorsList();
+            
+            // Set up event listeners
+            document.getElementById('add-doctor-btn').addEventListener('click', addDoctor);
+            document.getElementById('update-doctor-btn').addEventListener('click', updateDoctor);
+            document.getElementById('remove-doctor-btn').addEventListener('click', removeDoctor);
+        });
+
+        function renderDoctorsList() {
+            const doctorList = document.getElementById('doctor-list');
+            doctorList.innerHTML = '';
+            
+            if (mockDoctors.length === 0) {
+                doctorList.innerHTML = '<div class="no-doctors">No doctors found</div>';
+                return;
+            }
+            
+            mockDoctors.forEach(doctor => {
+                const doctorDiv = document.createElement('div');
+                doctorDiv.className = 'doctor-item';
+                doctorDiv.innerHTML = `
+                    <div class="doctor-info">
+                        <h3>${doctor.name}</h3>
+                        <p><strong>Specialty:</strong> ${doctor.specialty}</p>
+                        <p><strong>Status:</strong> <span class="status ${doctor.status.toLowerCase().replace(' ', '-')}">${doctor.status}</span></p>
+                    </div>
+                    <div class="doctor-actions">
+                        <button onclick="editDoctor(${doctor.id})"><i class="fas fa-edit"></i> Edit</button>
+                        <button onclick="confirmRemoveDoctor(${doctor.id})" class="remove-btn"><i class="fas fa-user-minus"></i> Remove</button>
+                    </div>
+                `;
+                doctorList.appendChild(doctorDiv);
+            });
+        }
+
+        function addDoctor() {
+            const name = document.getElementById('doctor-name').value;
+            const specialty = document.getElementById('doctor-specialty').value;
+            
+            if (!name || !specialty) {
+                alert('Please enter both name and specialty');
+                return;
+            }
+            
+            const newDoctor = {
+                id: mockDoctors.length + 1,
+                name: name,
+                specialty: specialty,
+                status: "Active"
+            };
+            
+            mockDoctors.push(newDoctor);
+            renderDoctorsList();
+            
+            // Clear form
+            document.getElementById('doctor-name').value = '';
+            document.getElementById('doctor-specialty').value = '';
+            
+            alert('Doctor added successfully!');
+        }
+
+        function editDoctor(id) {
+            const doctor = mockDoctors.find(d => d.id === id);
+            if (!doctor) return;
+            
+            document.getElementById('update-doctor-id').value = doctor.id;
+            document.getElementById('update-doctor-name').value = doctor.name;
+            document.getElementById('update-doctor-specialty').value = doctor.specialty;
+            
+            // Scroll to update form
+            document.getElementById('update-doctor-name').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateDoctor() {
+            const id = parseInt(document.getElementById('update-doctor-id').value);
+            const name = document.getElementById('update-doctor-name').value;
+            const specialty = document.getElementById('update-doctor-specialty').value;
+            
+            const doctorIndex = mockDoctors.findIndex(d => d.id === id);
+            if (doctorIndex === -1) {
+                alert('Doctor not found');
+                return;
+            }
+            
+            mockDoctors[doctorIndex].name = name;
+            mockDoctors[doctorIndex].specialty = specialty;
+            
+            renderDoctorsList();
+            alert('Doctor information updated successfully!');
+        }
+
+        function confirmRemoveDoctor(id) {
+            if (confirm('Are you sure you want to remove this doctor?')) {
+                removeDoctor(id);
+            }
+        }
+
+        function removeDoctor(id) {
+            if (!id) {
+                const name = document.getElementById('remove-doctor-name').value;
+                const reason = document.getElementById('remove-doctor-reason').value;
+                
+                if (!name) {
+                    alert('Please enter a doctor name');
+                    return;
+                }
+                
+                id = mockDoctors.find(d => d.name === name)?.id;
+                if (!id) {
+                    alert('Doctor not found');
+                    return;
+                }
+            }
+            
+            const doctorIndex = mockDoctors.findIndex(d => d.id === id);
+            if (doctorIndex !== -1) {
+                mockDoctors.splice(doctorIndex, 1);
+                renderDoctorsList();
+                alert('Doctor removed successfully!');
+                
+                // Clear remove form
+                document.getElementById('remove-doctor-name').value = '';
+                document.getElementById('remove-doctor-reason').value = '';
+            }
+        }
+    </script>
+    <style>
+        /* Basic styling - you can move this to styles.css */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #0C155A, #1a3a8f);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        header h1 {
+            margin: 0;
+        }
+        
+        header a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        header a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .doctor-management {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .doctor-management h2 {
+            color: #0C155A;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        button {
+            background-color: #0C155A;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+        }
+        
+        button:hover {
+            background-color: #1a3a8f;
+        }
+        
+        .remove-btn {
+            background-color: #dc3545;
+        }
+        
+        .remove-btn:hover {
+            background-color: #c82333;
+        }
+        
+        .doctor-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            background-color: #f9f9f9;
+        }
+        
+        .doctor-info h3 {
+            margin: 0 0 5px 0;
+            color: #0C155A;
+        }
+        
+        .doctor-info p {
+            margin: 5px 0;
+        }
+        
+        .status {
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .status.active {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status.inactive {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .status.on-leave {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .doctor-actions button {
+            margin-left: 10px;
+        }
+        
+        .no-doctors {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Manage Doctors</h1>
-        <a href="index.html">Back to Home</a>
+        <h1><i class="fas fa-user-md"></i> Manage Doctors</h1>
+        <a href="index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
     </header>
 
     <section class="doctor-management">
-        <h2>Add New Doctor</h2>
-        <input type="text" id="doctor-name" placeholder="Doctor Name">
-        <input type="text" id="doctor-specialty" placeholder="Specialty">
-        <button onclick="addDoctor()">Add Doctor</button>
+        <h2><i class="fas fa-plus-circle"></i> Add New Doctor</h2>
+        <div class="form-group">
+            <label for="doctor-name">Doctor Name</label>
+            <input type="text" id="doctor-name" placeholder="Enter full name">
+        </div>
+        <div class="form-group">
+            <label for="doctor-specialty">Specialty</label>
+            <input type="text" id="doctor-specialty" placeholder="Enter medical specialty">
+        </div>
+        <button id="add-doctor-btn"><i class="fas fa-user-plus"></i> Add Doctor</button>
 
-        <h2>Existing Doctors</h2>
-        <div id="doctor-list"></div><br><br>
+        <h2><i class="fas fa-list-ul"></i> Existing Doctors</h2>
+        <div id="doctor-list"></div>
 
-        <h2>Update Doctor Information</h2>
-        <input type="text" id="doctor-name" placeholder="Search Doctor">
-        <input type="text" id="doctor-name" placeholder="Doctor Name">
-        <input type="text" id="doctor-specialty" placeholder="Specialty">
-        <button onclick="addDoctor()">Done</button>
+        <h2><i class="fas fa-edit"></i> Update Doctor Information</h2>
+        <input type="hidden" id="update-doctor-id">
+        <div class="form-group">
+            <label for="update-doctor-name">Doctor Name</label>
+            <input type="text" id="update-doctor-name" placeholder="Enter updated name">
+        </div>
+        <div class="form-group">
+            <label for="update-doctor-specialty">Specialty</label>
+            <input type="text" id="update-doctor-specialty" placeholder="Enter updated specialty">
+        </div>
+        <button id="update-doctor-btn"><i class="fas fa-save"></i> Update Doctor</button>
 
-        <h2>Remove Doctor</h2>
-        <input type="text" id="doctor-name" placeholder="Doctor Name">
-        <input type="text" id="doctor-remove" placeholder="Reason">
-        <button onclick="addDoctor()">Remove Doctor</button>
+        <h2><i class="fas fa-user-minus"></i> Remove Doctor</h2>
+        <div class="form-group">
+            <label for="remove-doctor-name">Doctor Name</label>
+            <input type="text" id="remove-doctor-name" placeholder="Enter doctor name to remove">
+        </div>
+        <div class="form-group">
+            <label for="remove-doctor-reason">Reason for Removal</label>
+            <input type="text" id="remove-doctor-reason" placeholder="Optional reason for removal">
+        </div>
+        <button id="remove-doctor-btn" class="remove-btn"><i class="fas fa-trash-alt"></i> Remove Doctor</button>
     </section>
 </body>
 </html>

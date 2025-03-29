@@ -1,27 +1,31 @@
 document.addEventListener('DOMContentLoaded', function() {
   loadPatients();
-  setupEventListeners();
+  setupFormSubmit();
 });
 
 let currentPatientId = null;
+let currentAction = null;
 
-function setupEventListeners() {
-  // Form submission
+function setupFormSubmit() {
   document.getElementById('patient-form').addEventListener('submit', function(e) {
       e.preventDefault();
-      savePatient();
+      if (currentAction === 'create') {
+          createPatient();
+      } else if (currentAction === 'update') {
+          updatePatient();
+      }
   });
 }
 
 function loadPatients() {
-  fetch('fetch_patients.php')
+  fetch('api/fetch_patients.php')
       .then(response => response.json())
       .then(data => {
           renderPatientList(data);
       })
       .catch(error => {
-          console.error('Error loading patients:', error);
-          alert('Failed to load patients. Please try again.');
+          console.error('Error:', error);
+          alert('Failed to load patients');
       });
 }
 
@@ -30,41 +34,47 @@ function renderPatientList(patients) {
   tableBody.innerHTML = '';
 
   patients.forEach(patient => {
-      const row = document.createElement('tr');
-      
       const statusClass = patient.status === "1" ? 'status-active' : 'status-inactive';
       const statusText = patient.status === "1" ? 'Active' : 'Inactive';
-      const actionButton = patient.status === "1" ? 
-          `<button class="action-btn deactivate-btn" onclick="showDeactivateConfirm(${patient.id})">Deactivate</button>` :
-          `<button class="action-btn activate-btn" onclick="activatePatient(${patient.id})">Activate</button>`;
       
+      const row = document.createElement('tr');
       row.innerHTML = `
           <td>${patient.name}</td>
           <td>${patient.phone}</td>
           <td>${patient.email}</td>
           <td><span class="status-badge ${statusClass}">${statusText}</span></td>
           <td>
-              <button class="action-btn edit-btn" onclick="editPatient(${patient.id})">Edit</button>
-              ${actionButton}
+              <button class="action-btn edit-btn" onclick="prepareUpdate(${patient.id})">Edit</button>
+              ${patient.status === "1" ? 
+                  `<button class="action-btn deactivate-btn" onclick="showConfirmModal(${patient.id}, 'deactivate')">Deactivate</button>` :
+                  `<button class="action-btn activate-btn" onclick="showConfirmModal(${patient.id}, 'activate')">Activate</button>`
+              }
           </td>
       `;
-      
       tableBody.appendChild(row);
   });
 }
 
-function openCreateModal() {
-  currentPatientId = null;
-  document.getElementById('modal-title').textContent = 'New Patient';
-  document.getElementById('patient-form').reset();
-  document.getElementById('status').value = '1';
-  document.getElementById('patient-modal').style.display = 'flex';
+// CREATE PATIENT
+function openModal(action) {
+  currentAction = action;
+  const modal = document.getElementById('patient-modal');
+  
+  if (action === 'create') {
+      document.getElementById('modal-title').textContent = 'New Patient';
+      document.getElementById('patient-form').reset();
+      document.getElementById('status').value = '1';
+  }
+  
+  modal.style.display = 'flex';
 }
 
-function editPatient(id) {
-  currentPatientId = id;
+// UPDATE PATIENT
+function prepareUpdate(patientId) {
+  currentPatientId = patientId;
+  currentAction = 'update';
   
-  fetch(`get_patient.php?id=${id}`)
+  fetch(`api/get_patient.php?id=${patientId}`)
       .then(response => response.json())
       .then(patient => {
           if (patient) {
@@ -74,26 +84,21 @@ function editPatient(id) {
               document.getElementById('phone').value = patient.phone;
               document.getElementById('email').value = patient.email;
               document.getElementById('status').value = patient.status;
-              document.getElementById('patient-modal').style.display = 'flex';
+              openModal('update');
           } else {
               alert('Patient not found');
           }
       })
       .catch(error => {
-          console.error('Error fetching patient:', error);
-          alert('Failed to load patient data.');
+          console.error('Error:', error);
+          alert('Failed to load patient data');
       });
 }
 
-function savePatient() {
+function createPatient() {
   const formData = new FormData(document.getElementById('patient-form'));
-  const url = currentPatientId ? 'update_patient.php' : 'create_patient.php';
   
-  if (currentPatientId) {
-      formData.append('id', currentPatientId);
-  }
-  
-  fetch(url, {
+  fetch('api/create_patient.php', {
       method: 'POST',
       body: formData
   })
@@ -102,28 +107,64 @@ function savePatient() {
       if (data.success) {
           closeModal();
           loadPatients();
-          alert(`Patient ${currentPatientId ? 'updated' : 'created'} successfully!`);
+          alert('Patient created successfully!');
       } else {
-          alert(data.message || 'Operation failed');
+          alert(data.message || 'Creation failed');
       }
   })
   .catch(error => {
-      console.error('Error saving patient:', error);
-      alert('Failed to save patient. Please try again.');
+      console.error('Error:', error);
+      alert('Failed to create patient');
   });
 }
 
-function showDeactivateConfirm(id) {
-  currentPatientId = id;
-  document.getElementById('confirm-message').textContent = 'Are you sure you want to deactivate this patient?';
-  document.getElementById('confirm-action-btn').onclick = deactivatePatient;
-  document.getElementById('confirm-action-btn').className = 'confirm-btn';
-  document.getElementById('confirm-action-btn').textContent = 'Deactivate';
-  document.getElementById('confirm-modal').style.display = 'flex';
+function updatePatient() {
+  const formData = new FormData(document.getElementById('patient-form'));
+  formData.append('id', currentPatientId);
+  
+  fetch('api/update_patient.php', {
+      method: 'POST',
+      body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+      if (data.success) {
+          closeModal();
+          loadPatients();
+          alert('Patient updated successfully!');
+      } else {
+          alert(data.message || 'Update failed');
+      }
+  })
+  .catch(error => {
+      console.error('Error:', error);
+      alert('Failed to update patient');
+  });
+}
+
+// DEACTIVATE/ACTIVATE PATIENT
+function showConfirmModal(patientId, action) {
+  currentPatientId = patientId;
+  const confirmModal = document.getElementById('confirm-modal');
+  const confirmBtn = document.getElementById('confirm-action-btn');
+  
+  if (action === 'deactivate') {
+      document.getElementById('confirm-message').textContent = 'Are you sure you want to deactivate this patient?';
+      confirmBtn.textContent = 'Deactivate';
+      confirmBtn.className = 'confirm-btn deactivate-btn';
+      confirmBtn.onclick = deactivatePatient;
+  } else {
+      document.getElementById('confirm-message').textContent = 'Are you sure you want to activate this patient?';
+      confirmBtn.textContent = 'Activate';
+      confirmBtn.className = 'confirm-btn activate-btn';
+      confirmBtn.onclick = activatePatient;
+  }
+  
+  confirmModal.style.display = 'flex';
 }
 
 function deactivatePatient() {
-  fetch(`deactivate_patient.php?id=${currentPatientId}`)
+  fetch(`api/deactivate_patient.php?id=${currentPatientId}`)
       .then(response => response.json())
       .then(data => {
           if (data.success) {
@@ -135,18 +176,17 @@ function deactivatePatient() {
           }
       })
       .catch(error => {
-          console.error('Error deactivating patient:', error);
+          console.error('Error:', error);
           alert('Failed to deactivate patient');
       });
 }
 
-function activatePatient(id) {
-  currentPatientId = id;
-  
-  fetch(`activate_patient.php?id=${id}`)
+function activatePatient() {
+  fetch(`api/activate_patient.php?id=${currentPatientId}`)
       .then(response => response.json())
       .then(data => {
           if (data.success) {
+              closeConfirmModal();
               loadPatients();
               alert('Patient activated successfully');
           } else {
@@ -154,15 +194,18 @@ function activatePatient(id) {
           }
       })
       .catch(error => {
-          console.error('Error activating patient:', error);
+          console.error('Error:', error);
           alert('Failed to activate patient');
       });
 }
 
 function closeModal() {
   document.getElementById('patient-modal').style.display = 'none';
+  currentPatientId = null;
+  currentAction = null;
 }
 
 function closeConfirmModal() {
   document.getElementById('confirm-modal').style.display = 'none';
+  currentPatientId = null;
 }
